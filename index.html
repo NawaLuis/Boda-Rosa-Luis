@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nuestra boda</title>
+  <link rel="icon" type="image/png" href="glicinia.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #faf6f2;
+      --primary: #c28d8d;
+      --dark: #333;
+      --light: #ffffff;
+      --accent: #e3c7b5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+.fecha-color {
+  color: #fff0e6; /* ejemplo: rosa suave */
+  font-weight: bold; /* opcional */
+}
+
+.lugo-photo {
+  width: 100%;
+  height: 240px;         /* ajusta si quieres más/menos alto */
+  object-fit: cover;     /* recorta sin deformar */
+  border-radius: 14px;
+  margin-bottom: 1rem;
+}
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(250, 246, 242, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #e2d5cc;
+    }
+
+    nav {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    section {
+      padding: 3rem 0;
+      border-bottom: 1px solid #ebdfd6;
+    }
+
+    .hero {
+      text-align: center;
+      background: url('portada.jpeg') center/cover no-repeat;
+      padding: 200px 20px;
+      color: white;
+      position: relative;
+    }
+
+    .hero-overlay {
+  margin-top: 80px
+      background: rgba(0,0,0,0.45);
+      padding: 40px;
+      border-radius: 12px;
+      display: inline-block;
+      max-width: 700px;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    .hero .date {
+      font-size: 1.1rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 1rem;
+    }
+
+    .hero .location {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+   .card {
+  background: var(--light);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  margin-top: 1.5rem;
+  text-align: left;   /* 👈 ESTO ES LO CLAVE */
+}
+
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline {
+      list-style: none;
+    }
+
+    .timeline li {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-centered {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+}
+
+.timeline-centered li {
+  display: block;
+  margin-bottom: 2.5rem;
+}
+
+.card-center-vertical {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px; /* ajusta si quieres */
+}
+
+.card-center-vertical .badge {
+  align-self: center;   /* centrado horizontal */
+  margin-top: 1rem;     /* separado del borde superior */
+}
+
+.card-center-vertical .card-content {
+  flex: 0.5;                              /* ocupa el espacio restante */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;              /* centra verticalmente el texto */
+  align-items: center;                  /* centra horizontalmente */
+  text-align: center;
+}
+
+
+.timeline-centered time {
+  display: block;
+  text-align: center;        /* 👈 CENTRADO REAL */
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-centered .event strong {
+  display: block;
+  text-align: center;        /* 👈 misma línea visual */
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-centered .event p {
+  margin: 0;
+  text-align: left;          /* 👈 ocupa TODO el ancho */
+  line-height: 1.6;
+  color: #666;
+}
+
+/* --- Carrusel Qué ver en Lugo --- */
+.carousel {
+  position: relative;
+  margin: 1rem auto 0;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.carousel-viewport {
+  overflow: hidden;      /* CLAVE: solo se ve una tarjeta */
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.carousel-track {
+  display: flex;         /* CLAVE: horizontal */
+  transition: transform 0.35s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;        /* CLAVE: 1 slide = 100% del ancho */
+  background: var(--light);
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  padding: 1.5rem;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #e2d5cc;
+  background: rgba(255,255,255,0.9);
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid #d7c7bd;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+    }
+
+    .faq-item h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+/* Carrusel del lugar */
+.place-carousel {
+  position: relative;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+}
+
+.place-viewport {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.place-track {
+  display: flex;
+  transition: transform 0.35s ease;
+}
+
+.place-track img {
+  width: 100%;
+  flex: 0 0 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.place-btn {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid #e2d5cc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 22px;
+  display: grid;
+  place-items: center;
+}
+
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo">Nuestra boda</div>
+    <div class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#historia">Nuestra historia</a>
+      <a href="#dia">El gran día</a>
+      <a href="#info">Cómo llegar</a>
+      <a href="#info">Qué ver en Lugo</a>
+      <a href="#info">Alojamiento</a>
+      <a href="#info">Confirmar</a>
+      <a href="#rsvp">Galería</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- INICIO -->
+  <section id="inicio" class="hero">
+     <div class="hero-overlay">
+<p class="date">
+  <span class="fecha-color">26 de Septiembre del 2026</span>
+</p>
+    <h1>Rosa &amp; Luis</h1>
+    <p class="location">Tenemos muchas ganas de celebrar este día con vosotros.</p>
+
+    <div>
+      <h2>¡Nos casamos!</h2>
+      <p>
+        Aquí encontrarás toda la información sobre nuestra boda: horario, lugar,
+        cómo llegar, alojamiento y cómo confirmar tu asistencia.
+      </p>
+  </div> 
+  </section>
+
+  <!-- NUESTRA HISTORIA -->
+  <section id="historia">
+    <h2>Nuestra historia</h2>
+    <div class="card">
+    <p>
+      Antes de conocernos y empezar nuestra aventura, los dos teníamos vidas muy diferentes
+      y a la vez muy parecidas en algunos aspectos. Nos costó adaptarnos a nuestro entorno y en ciertas ocasiones cada uno se perdió en su propia historia, dejando de darnos la importancia que merecíamos.
+    </p>
+
+    <p>
+      Pero eso cambió. Cerramos puertas y ventanas que no nos hacían ser nosotros mismos
+      y comenzamos a reencontrarnos, a reconocernos y a darnos valor como personas.
+    </p>
+
+    <p>
+      En el momento en el que nos sentimos plenamente nosotros mismos, sabiendo lo que
+      queríamos y poniéndonos en valor, a través de la tecnología (una app), conectamos.
+      Empezamos a hablar, a conocernos sin ocultar nada, mostrándonos tal y como somos,
+      con nuestras virtudes y nuestros defectos.
+    </p>
+
+    <p>
+      Cada día era descubrir algo nuevo del otro que nos hacía unirnos más.
+    </p>
+<p>
+      A los pocos meses, un susto podría haberlo cambiado todo. Pero, hay cosas que no se olvidan y lo único que podía decir era:
+    </p>
+
+    <p class="highlight">
+      “No me acuerdo de nada, solo sé que eres Rosa, eres cirujana y te tengo que llamar.”
+    </p>
+
+    <p>
+      Si todo dentro de mi cabeza se había olvidado, pero eso permanecía, era porque ya
+      no estaba solo en mi mente: formaba parte de mí.
+    </p>
+
+    <p>
+      Desde entonces seguimos caminando juntos, formando un nosotros fuerte y grande,
+      donde cada uno es individual y los dos somos un conjunto.
+    </p>
+
+    <p>
+      Hemos viajado, hemos conocido a la familia y gente cercana del otro, entrenamos juntos y nos hemos comprado una casa. Y para que este día llegara, hemos tenido que irnos a 15.000 km y esperar 21 cartas a lo largo de dos años para poder celebrar nuestro amor con todos vosotros, que formáis parte de nuestra historia.
+    </p>
+  </div>
+</section>
+
+  <!-- EL GRAN DÍA -->
+  <section id="dia">
+    <h2>El gran día</h2>
+    <div class="card">
+      <ul class="timeline-centered">
+  <li>
+    <time>12:30</time>
+    <div class="event">
+      <strong>Recepción</strong>
+      <p>Momento de la llegada a la finca en la que apreciereis y disfrutareis del entorno en el que se encuentra y entendereis el motivo por el que hemos elegido este lugar.</p>
+    </div>
+  </li>
+
+  <li>
+    <time>13:00</time>
+    <div class="event">
+      <strong>Ceremonia</strong>
+      <p>Una ceremonia a nuestro gusto que esperamos que la disfrutéis.</p>
+    </div>
+  </li>
+
+  <li>
+    <time>13:30</time>
+    <div class="event">
+      <strong>Cóctel</strong>
+      <p>Si el tiempo lo permite, será un coctel al aire libre. Pero no os preocupeis, que en caso de que llueva (es Galicia), tenemos alternativa para tomar el aperitivo sin tener que movernos mucho y sin tener que dejar de disfrutar del entorno.</p>
+    </div>
+  </li>
+
+  <li>
+    <time>15:30</time>
+    <div class="event">
+      <strong>Banquete</strong>
+      <p>Pues seguimos comiendo. Ahora pasaremos a sentarnos para poder descansar un poco y disfrutar de una buena comida. La idea es, ¡que nadie se quede con hambre!, que en Galicia eso no se puede permitir. </p>
+    </div>
+  </li>
+
+  <li>
+    <time>18:30</time>
+    <div class="event">
+      <strong>Inicio de la fiesta</strong>
+      <p>Una vez decansados, nos levantaremos para mover el esqueleto al son de la música, donde dispondremos de música en directo y de un dj.</p>
+    </div>
+  </li>
+
+  <li>
+    <time>22:30</time>
+    <div class="event">
+      <strong>Final de la fiesta</strong>
+      <p>Por desgracia, cuando el cuerpo no aguanta más, toca retirarse a descansar. Pero antes de irse, no olvideis de despediros de nosotros, que a algunos, hasta dentro de meses no os veremos y nos gustaría poder despedirnos de vosotros y agradeceros que hayais hecho el esfuerzo por haber venido.</p>
+    </div>
+  </li>
+</ul>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: COMO LLEGAR -->
+  <section id="info">
+  <h2>Cómo llegar</h2>
+
+  <div class="columns">
+    
+    <!-- COLUMNA IZQUIERDA: DIRECCIÓN -->
+    <div class="card card-center-vertical">
+  <span class="badge">CÓMO LLEGAR</span>
+
+  <div class="card-content">
+    <p>
+      Dirección: Finca Val dos Soños,<br>
+      Lugar Colexio 1, 27271 Lugo
+    </p>
+
+   
+  <p>Si vienes en coche, puedes usar este enlace:</p>
+      <a href="TU_ENLACE_A_GOOGLE_MAPS" target="_blank">Ver en el mapa</a>
+    </div>
+</div>
+
+    <!-- COLUMNA DERECHA: FOTO -->
+  <div class="card card-center-vertical">
+  <span class="badge">EL LUGAR</span>
+
+  <div class="place-carousel">
+    <button class="place-btn prev" type="button">‹</button>
+
+    <div class="place-viewport">
+      <div class="place-track">
+        <img src="Finca val dos soños.webp" alt="Finca Val dos Soños">
+        <img src="Parking.jpg" alt="Parking">
+        </div>
+    </div>
+
+    <button class="place-btn next" type="button">›</button>
+  </div>
+</div>
+
+
+  </div>
+</section>
+
+<section id="lugo">
+  <h2>Qué ver en Lugo</h2>
+
+  <div class="carousel">
+    <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="lugoTrack">
+        <article class="carousel-slide">
+  <img class="lugo-photo" src="murallalugo.jpeg" alt="Muralla Romana de Lugo">
+          <h3>Muralla Romana</h3>
+          <p>Es uno de los grandes símbolos de la ciudad y una joya única en el mundo. Construida por los romanos entre los siglos III y IV d.C., rodeando íntegramente el casco histórico con más de 2 kilómetros de perímetro. Declarada Patrimonio de la Humanidad por la UNESCO en el 2000, hoy se puede recorrer a pie y ofrece vistas privilegiadas de la ciudad, combinando historia, cultura y el carácter tranquilo de Lugo.</p>
+<p>
+  <strong>Más información:</strong>
+  <a href="https://www.concellodelugo.gal/gl/lugo-destino-turistico"
+     target="_blank" rel="noopener">
+    web oficial de turismo de Lugo
+  </a>
+</p>
+        </article>
+
+        <article class="carousel-slide">
+<img class="lugo-photo" src="catedrallugo.jpg" alt="Catedral de Lugo">
+          <h3>Catedral de Lugo</h3>
+          <p>Construida entre los siglos XII y XIV, combina estilos románico, gótico y barroco. Es única por conservar la exposición permanente del Santísimo Sacramento y se sitúa junto a la muralla romana, en el corazón histórico de la ciudad.</p>
+          <p><strong>Tip:</strong> combina con un paseo por la zona vieja.</p>
+        </article>
+
+        <article class="carousel-slide">
+<img class="lugo-photo" src="vinos.webp" alt="Zona de vinos">
+          <h3>Zona de vinos</h3>
+          <p>La zona de vinos de Lugo, situada en el casco histórico, es famosa por sus calles llenas de bares donde cada consumición se acompaña de una tapa gratuita. Es un lugar animado y acogedor, perfecto para disfrutar de la gastronomía gallega y del ambiente local.</p>
+con motivo de la festividad de Santa Marta, cada 29 de julio, man          <p>La fuente de San Vicente de la Praza do Campo, a vino tinto en lugar de agua. </p>
+<p><strong>Bares recomendados:</strong>El Riba, El Tentáculo, Bar Daniel, People y Las cinco vigas.
+        </article>
+
+        <article class="carousel-slide">
+<img class="lugo-photo" src="miño.jpg" alt="Paseo rio Miño">
+          <h3>Paseo del Miño</h3>
+          <p>El paseo del río Miño es uno de los rincones más agradables de Lugo, ideal para caminar y desconectar. A su paso por la ciudad ofrece senderos tranquilos, zonas verdes y vistas al puente romano, combinando naturaleza e historia a pocos minutos del casco antiguo.</p>
+          <p><strong>Tip:</strong> lleva calzado cómodo.</p>
+        </article>
+<article class="carousel-slide">
+<img class="lugo-photo" src="RibeiraSacra.jpg" alt="Ribeira Sacra">
+          <h3>Ribeira Sacra</h3>
+          <p>En el Sur de la provincia, a 85 km, se encuentra la Ribeira Sacra. Un lugar donde perderse por sus caminos y el camino serpenteante del río y poder visitar diferentes bodegas para probar el producto local. </p>
+ <p>
+    <strong>Mas información</strong> en su
+    <a href="https://www.ribeirasacra.org/" target="_blank" rel="noopener">
+      web oficial
+    </a>.
+  </p>
+                 </article>
+<article class="carousel-slide">
+<img class="lugo-photo" src="Playacatedrales.jpg" alt="Playa de las Catedrales">
+          <h3>Playa de las Catedrales</h3>
+          <p>En el Norte de la provincia, a 110 km, se encuentra la Playa de las Catedrales</p>
+            <strong>Mas información</strong> en su
+    <a href="https://ascatedrais.xunta.gal/monatr/verMasInfo?lang=es" target="_blank" rel="noopener">
+      web oficial
+    </a>.
+  </p>
+
+        </article>
+
+      </div>
+    </div>
+
+    <button class="carousel-btn next" type="button" aria-label="Siguiente">›</button>
+  </div>
+
+  <div class="carousel-dots" id="lugoDots"></div>
+</section>
+
+
+<!-- SECCIÓN: ALOJAMIENTO -->
+<section id="alojamiento">
+  <h2>Alojamiento</h2>
+    <div class="card">
+  <p>
+      Os dejamos algunos hoteles con buenos precios y céntricos,
+      para facilitaros el viaje:
+    </p>
+
+    <ul>
+      <li> <a href="https://www.hotelbrioslugo.com/" target="_blank">
+        <a href="https://www.hotelbrioslugo.com/" target="_blank">
+          Hotel Brios
+        </a>
+      </li>
+      <li>
+        <a href="https://www.ciudaddelugo.com/" target="_blank">
+          Apartamentos Ciudad de Lugo
+        </a>
+      </li>
+<li>
+        <a href="https://hotelmania.net/hotel/lugo/hostal-pension-mar-de-plata/" target="_blank">
+          Hotel Mar de Plata
+        </a>
+      </li>
+<li>
+        <a href="https://www.hoteldario.es/" target="_blank">
+          Hotel Dario
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.escapadarural.com/casa-rural/lugo/casa-chain" target="_blank">
+          Casa rural Chain
+        </a>
+      </li>
+ <li>
+        <a href="https://www.escapadarural.com/casa-rural/lugo/el-viejo-molino" target="_blank">
+          Casa rural El viejo molino
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- CONFIRMAR ASISTENCIA -->
+  <section id="rsvp">
+    <h2>Confirmar</h2>
+    <div class="card">
+      <p>
+        Agradecemos que la asistencia, y la zona de Lugo en la que os alojáis sea confirmada antes del <strong>26/07/2026</strong>
+        para que podamos organizarlo todo con tiempo.
+	<p><strong>Rosa:</strong> 692 83 26 73 // <strong>Luis:</strong> 670 43 99 11</p>
+      </p>
+    </div>
+  </section>
+
+
+ <!-- Galería de fotos -->
+  <section id="info">
+  <h2>Galería</h2>
+
+  <div class="columns">
+    
+    <!-- COLUMNA IZQUIERDA: DIRECCIÓN -->
+    <div class="card">
+      <span class="badge">Fotógrafo</span>
+
+  <p>
+        Puedes ver todas las fotos hechas por el fotógrafo en este enlace
+      </p>
+      <a href="En espera" target="_blank">Web fotógrafo</a>
+<p> <strong>Página en construcción. </strong></p>
+    </div>
+
+    <!-- COLUMNA DERECHA: FOTO -->
+    <div class="card">
+      <span class="badge">Google Drive</span>
+      <p>
+        Podéis utilizar el siguiente enlace para acceder a una carpeta de Google Drive donde subir y compartir todas las fotos que habeis hecho
+      </p>
+<a href="https://drive.google.com/drive/folders/1Km_aBahVyZmOZ4Ud7PJS-w5AsInaW-Xv?usp=drive_link" target="_blank">Google Drive</a>
+
+    </div>
+
+  </div>
+</section>
+
+  
+  <!-- PREGUNTAS FRECUENTES -->
+  <section id="faq">
+    <h2>Preguntas frecuentes</h2>
+    <div class="card">
+      <div class="faq-item">
+        <h3>Soy alergic@ o no puedo comer ciertas cosas</h3>
+        <p>Para casos de alergias o que no puedan comer, avisadnos con tiempo para poder gestionarlo adecuadamente y que podáis disfrutar de la comida sin problemas</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Hay transporte hasta el lugar del evento?</h3>
+        <p>La finca se encuentra a las afueras de Lugo, no hay transporte público para poder llegar. En caso de que muchos de los que venís os alojéis por el centro, si nos avisais con tiempo, podemos organizar un autobús para llevaros a todos y así no tener que depender de los coches. </p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Hay restricciones de algún tipo?</h3>
+        <p>
+          Sí, no está permitido traer dinosaurios, tanques, ni llegar en avión y/o helicóptero.
+        </p>
+      </div>
+      <div class="faq-item">
+  <div class="faq-item">
+        <h3>¿Se puede ir con niños?</h3>
+        <p>
+          Sí, nos tenéis que facilitar la edad para gestionar comidas. Tendremos cubiertos y platos de plástico así como una jaula en caso de que se porten mal.
+        </p>
+      </div>
+      <div class="faq-item">
+
+
+        <h3>Contacto</h3>
+        <p>
+          Si tienes cualquier duda, puedes escribirnos :) 
+          <br />
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Con cariño, Rosa &amp; Luis · 26/09/2026
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.getElementById("lugo");
+  const track = document.getElementById("lugoTrack");
+  const dotsWrap = document.getElementById("lugoDots");
+  const prevBtn = section ? section.querySelector(".prev") : null;
+  const nextBtn = section ? section.querySelector(".next") : null;
+
+  // Comprobaciones (si algo falta, lo verás en consola)
+  if (!section) { console.error("No existe <section id='lugo'>"); return; }
+  if (!track)   { console.error("No existe el elemento con id='lugoTrack'"); return; }
+  if (!prevBtn) { console.error("No existe el botón .prev dentro de #lugo"); return; }
+  if (!nextBtn) { console.error("No existe el botón .next dentro de #lugo"); return; }
+  if (!dotsWrap){ console.warn("No existe #lugoDots (los puntos son opcionales)"); }
+
+  const slides = Array.from(track.querySelectorAll(".carousel-slide"));
+  if (slides.length === 0) { console.error("No hay elementos .carousel-slide"); return; }
+
+  let index = 0;
+
+  function update() {
+    track.style.transform = `translateX(${-index * 100}%)`;
+    if (!dotsWrap) return;
+    const dots = dotsWrap.querySelectorAll(".carousel-dot");
+    dots.forEach((d, i) => d.classList.toggle("active", i === index));
+  }
+
+  // Crear dots (si existe el contenedor)
+  if (dotsWrap) {
+    dotsWrap.innerHTML = "";
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "carousel-dot" + (i === 0 ? " active" : "");
+      b.addEventListener("click", () => { index = i; update(); });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  prevBtn.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    update();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    update();
+  });
+
+  // Asegurar que el track pueda moverse
+  track.style.willChange = "transform";
+  update();
+});
+</script>
+
+<script>
+(function () {
+  const carousel = document.querySelector(".place-carousel");
+  if (!carousel) return;
+
+  const track = carousel.querySelector(".place-track");
+  const slides = track.querySelectorAll("img");
+  const prev = carousel.querySelector(".prev");
+  const next = carousel.querySelector(".next");
+
+  let index = 0;
+
+  function update() {
+    track.style.transform = `translateX(${-index * 100}%)`;
+  }
+
+  prev.addEventListener("click", () => {
+    index = (index - 1 + slides.length) % slides.length;
+    update();
+  });
+
+  next.addEventListener("click", () => {
+    index = (index + 1) % slides.length;
+    update();
+  });
+})();
+</script>
+
+</body>
+</html>
